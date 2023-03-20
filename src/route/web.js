@@ -36,9 +36,14 @@ const initWebRoute = (app) => {
     router.post("/update-user", homeController.updateUser)
 
     router.get("/upload", homeController.uploadFile)
+
     router.post("/upload-profile-pic",
         multer({ storage: storage, fileFilter: imageFilter }).single('profile_pic'),
         homeController.handleUploadFile)
+
+    router.post("/upload-multiple-images",
+        multer({ storage: storage, fileFilter: imageFilter }).array('multiple_images', 5),
+        homeController.uploadMultipleImages)
 
     return app.use("/", router);
 }
